@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direito Humano à Alimentação Adequada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --dark-bg: #222;
+        }
+
+        /* Barra de rolagem personalizada */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #000;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #333;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .problem-card {
+            background: var(--light-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .problem-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .problem-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .problem-card:hover .problem-img img {
+            transform: scale(1.1);
+        }
+
+        .caption-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .caption-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .problem-content {
+            padding: 1.5rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .solution-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .solution-img {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .solution-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .call-to-action {
+            text-align: center;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .comments-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .comment-list {
+            margin-top: 2rem;
+        }
+
+        .comment {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .comment-date {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .solution-card {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .solution-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .awareness-section {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .awareness-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .action-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .action-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Direito Humano à Alimentação Adequada</h1>
+            <p class="subtitle">Conscientização, dados e soluções para um problema global</p>
+            <a href="#problem" class="btn">Saiba Mais</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="problem">
+            <h2>Comer é um ato de dignidade, não um privilégio</h2>
+            <p>O Direito Humano à Alimentação Adequada (DHAA) é um direito humano básico reconhecido internacionalmente, que garante a todas as pessoas o acesso regular e permanente a alimentos de qualidade, em quantidade suficiente, com base em práticas alimentares saudáveis.</p>
+            <p>No entanto, milhões de pessoas em todo o mundo ainda sofrem com a fome e a má nutrição, enquanto outras enfrentam problemas de saúde relacionados à alimentação inadequada.</p>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-img">
+                        <img src="https://observatorio3setor.org.br/wp-content/uploads/2017/09/Ree.png" alt="Desperdício de alimentos">
+                        <button class="caption-btn" aria-label="Mostrar legenda">ℹ️</button>
+                        <div class="caption-text">
+                            Cerca de 1/3 de todos os alimentos produzidos no mundo são desperdiçados anualmente, enquanto milhões passam fome.
+                        </div>
+                    </div>
+                    <div class="problem-content">
+                        <h3>Desperdício de Alimentos</h3>
+                        <p>Enquanto milhões passam fome, um terço de toda a comida produzida no mundo é desperdiçada anualmente.</p>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-img">
+                        <img src="https://thenationonlineng.net/wp-content/uploads/2020/03/malnourished-children.jpg">
+                        <button class="caption-btn" aria-label="Mostrar legenda">ℹ️</button>
+                        <div class="caption-text">
+                            A má nutrição infantil afeta o desenvolvimento físico e cognitivo, perpetuando ciclos de pobreza.
+                        </div>
+                    </div>
+                    <div class="problem-content">
+                        <h3>Má Nutrição Infantil</h3>
+                        <p>149 milhões de crianças menores de 5 anos sofrem de desnutrição crônica, afetando seu desenvolvimento.</p>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-img">
+                        <img src="https://th.bing.com/th/id/R.30c4ac4cc28df73002e1b39194c5cced?rik=a1IxAQuk2Mv9eA&riu=http%3a%2f%2fi0.statig.com.br%2fbancodeimagens%2f30%2f8b%2fyq%2f308byqmbr5rufxz9g2p5ol0z4.jpg&ehk=9LoQP9iuKL2LK%2bBqaCGPRi1%2bQNOiKbcnSdMuU1A0Yz0%3d&risl=&pid=ImgRaw&r=0">
+                        <button class="caption-btn" aria-label="Mostrar legenda">ℹ️</button>
+                        <div class="caption-text">
+                            Comunidades vulneráveis frequentemente têm acesso limitado a alimentos nutritivos e a preços acessíveis.
+                        </div>
+                    </div>
+                    <div class="problem-content">
+                        <h3>Acesso Desigual</h3>
+                        <p>Comunidades vulneráveis têm acesso limitado a alimentos nutritivos, perpetuando ciclos de pobreza.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data">
+            <h2>Dados Alarmantes</h2>
+            <p>Os números relacionados à fome e à má nutrição no mundo são alarmantes e mostram a urgência de ações concretas para garantir o direito humano à alimentação adequada para todos.</p>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">828 milhões</div>
+                    <p>de pessoas passam fome no mundo</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">45%</div>
+                    <p>das mortes infantis estão relacionadas à desnutrição</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3,1 bilhões</div>
+                    <p>de pessoas não podem ter uma dieta saudável</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">130 milhões</div>
+                    <p>de pessoas foram levadas à fome pela COVID-19 e conflitos</p>
+                </div>
+            </div>
+
+            <p>Fonte: FAO (Organização das Nações Unidas para Alimentação e Agricultura) - 2022</p>
+        </section>
+
+        <section id="solutions">
+            <h2>Soluções Propostas</h2>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <i class="fas fa-ban"></i>
+                    <h3>Combate ao Desperdício</h3>
+                    <p>Implementar políticas públicas e iniciativas privadas para reduzir o desperdício de alimentos em toda a cadeia produtiva, desde a colheita até o consumo.</p>
+                    <ul>
+                        <li>Campanhas de conscientização sobre aproveitamento integral dos alimentos</li>
+                        <li>Incentivos fiscais para doação de excedentes alimentares</li>
+                        <li>Tecnologias para melhorar a conservação e armazenamento</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Agricultura Sustentável</h3>
+                    <p>Incentivar práticas agrícolas sustentáveis que respeitem o meio ambiente e garantam alimentos saudáveis para as gerações presentes e futuras.</p>
+                    <ul>
+                        <li>Transição para agricultura agroecológica e orgânica</li>
+                        <li>Suporte técnico e financeiro para pequenos agricultores</li>
+                        <li>Proteção e recuperação de solos e recursos hídricos</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-card">
+                    <i class="fas fa-book-reader"></i>
+                    <h3>Educação Alimentar</h3>
+                    <p>Promover programas de educação alimentar e nutricional para capacitar as pessoas a fazerem escolhas alimentares saudáveis.</p>
+                    <ul>
+                        <li>Inserção de educação alimentar no currículo escolar</li>
+                        <li>Oficinas culinárias com aproveitamento integral de alimentos</li>
+                        <li>Campanhas públicas sobre alimentação saudável</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-card">
+                    <i class="fas fa-landmark"></i>
+                    <h3>Políticas Públicas</h3>
+                    <p>Fortalecer políticas públicas que garantam o acesso à alimentação adequada, especialmente para populações vulneráveis.</p>
+                    <ul>
+                        <li>Programas de alimentação escolar com produtos locais</li>
+                        <li>Restrições à publicidade de alimentos ultraprocessados</li>
+                        <li>Regulamentação da composição nutricional dos alimentos</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-card">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>Apoio à Agricultura Familiar</h3>
+                    <p>Fortalecer a agricultura familiar que produz a maior parte dos alimentos consumidos no Brasil.</p>
+                    <ul>
+                        <li>Crédito rural acessível para pequenos produtores</li>
+                        <li>Programas de compra governamental da agricultura familiar</li>
+                        <li>Assistência técnica rural gratuita</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-card">
+                    <i class="fas fa-store"></i>
+                    <h3>Circuitos Curtos de Comercialização</h3>
+                    <p>Estimular a conexão direta entre produtores rurais e consumidores.</p>
+                    <ul>
+                        <li>Feiras livres e feiras orgânicas em bairros</li>
+                        <li>Programas de CSA (Comunidade que Sustenta a Agricultura)</li>
+                        <li>Compras coletivas organizadas por comunidades</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="awareness-section">
+            <div class="awareness-content">
+                <h2>Conscientização e Ação</h2>
+                <p>O direito à alimentação adequada é fundamental para a dignidade humana. Cada um de nós pode contribuir para mudar essa realidade:</p>
+                
+                <div class="action-steps">
+                    <div class="action-step">
+                        <h3>Como Cidadão</h3>
+                        <ul>
+                            <li>Reduza o desperdício de alimentos em sua casa</li>
+                            <li>Apoie agricultores locais e produtos da estação</li>
+                            <li>Participe de iniciativas de doação e voluntariado</li>
+                            <li>Eduque-se e eduque outros sobre nutrição adequada</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="action-step">
+                        <h3>Como Consumidor</h3>
+                        <ul>
+                            <li>Prefira alimentos in natura e minimamente processados</li>
+                            <li>Leia rótulos e evite produtos com excesso de aditivos</li>
+                            <li>Participe de feiras locais e compre diretamente do produtor</li>
+                            <li>Reduza o consumo de alimentos ultraprocessados</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="action-step">
+                        <h3>Como Agente de Mudança</h3>
+                        <ul>
+                            <li>Cobre dos governantes políticas públicas efetivas</li>
+                            <li>Engaje-se em movimentos pela segurança alimentar</li>
+                            <li>Divulgue informações qualificadas sobre o tema</li>
+                            <li>Participe de conselhos de alimentação escolar</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem;">Juntos podemos construir um mundo onde ninguém passe fome!</p>
+                <a href="#comments" class="btn" style="margin-top: 1.5rem;">Deixe seu Comentário</a>
+            </div>
+        </section>
+
+        <section class="comments-section" id="comments">
+            <h2>Comentários</h2>
+            <p>Deixe sua opinião, sugestão ou compartilhe experiências relacionadas ao direito à alimentação adequada.</p>
+            
+            <div class="comment-form">
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comentário:</label>
+                    <textarea id="comment" placeholder="Seu comentário"></textarea>
+                </div>
+                <button class="btn" id="submit-comment">Enviar Comentário</button>
+            </div>
+
+            <div class="comment-list" id="comment-list">
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Maria Silva</span>
+                        <span class="comment-date">10/09/2025</span>
+                    </div>
+                    <p>É fundamental discutirmos esse tema. Em minha comunidade, temos um projeto de horta comunitária que tem ajudado muitas famílias.</p>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">João Santos</span>
+                        <span class="comment-date">08/08/2025</span>
+                    </div>
+                    <p>Precisamos de mais políticas públicas voltadas para a segurança alimentar nas periferias. Ótima iniciativa este site!</p>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Ana Costa</span>
+                        <span class="comment-date">05/08/2025</span>
+                    </div>
+                    <p>Gostaria de saber como posso me envolver mais ativamente nesta causa. Vocês poderiam indicar organizações que trabalham com isso?</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="accessibility-btn" aria-label="Opções de acessibilidade">
+        <i class="fas fa-universal-access"></i>
+    </div>
+
+    <footer>
+        <p>© 2023 - Direito Humano à Alimentação Adequada | Conscientização e Ação</p>
+        <p>Site criado para fins educativos e de conscientização</p>
+        <p>Fontes: FAO, ONU, IBGE e Organização Mundial da Saúde</p>
+    </footer>
+
+    <script>
+        // Script para as legendas de acessibilidade
+        document.querySelectorAll('.caption-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const caption = this.nextElementSibling;
+                caption.style.display = caption.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Script para enviar comentários
+        document.getElementById('submit-comment').addEventListener('click', function() {
+            const nameInput = document.getElementById('name');
+            const commentInput = document.getElementById('comment');
+            
+            if (nameInput.value.trim() === '' || commentInput.value.trim() === '') {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+            
+            const commentList = document.getElementById('comment-list');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment';
+            
+            const date = new Date();
+            const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+            
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-author">${nameInput.value}</span>
+                    <span class="comment-date">${formattedDate}</span>
+                </div>
+                <p>${commentInput.value}</p>
+            `;
+            
+            commentList.prepend(newComment);
+            
+            // Limpar os campos
+            nameInput.value = '';
+            commentInput.value = '';
+            
+            alert('Comentário enviado com sucesso!');
+        });
+
+        // Acessibilidade - aumento de fonte
+        const accessibilityBtn = document.querySelector('.accessibility-btn');
+        let fontSizeIncreased = false;
+        
+        accessibilityBtn.addEventListener('click', function() {
+            const elements = document.querySelectorAll('body, p, h1, h2, h3, a, button');
+            elements.forEach(el => {
+                if (fontSizeIncreased) {
+                    el.style.fontSize = '';
+                } else {
+                    const currentSize = window.getComputedStyle(el).fontSize;
+                    const newSize = parseFloat(currentSize) * 1.2;
+                    el.style.fontSize = `${newSize}px`;
+                }
+            });
+            
+            fontSizeIncreased = !fontSizeIncreased;
+        });
+    </script>
+
+   <!-- === Início: Leitor de Texto + Tema (abre ao clicar no botão .accessibility-btn) === -->
+<style>
+  #tts-panel {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    background: rgba(255,255,255,0.98);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+    padding: 12px;
+    width: 320px;
+    z-index: 2000;
+    font-family: inherit;
+    display: none; /* começa escondido */
+  }
+  #tts-panel h4 { margin: 0 0 8px 0; font-size: 14px; color: #222; }
+  #tts-panel label { font-size: 12px; display:block; margin-top:6px; color:#444;}
+  #tts-controls { display:flex; gap:6px; margin-top:8px; }
+  #tts-controls button { flex:1; padding:8px; border-radius:6px; border:none; cursor:pointer; font-weight:600; }
+  #tts-controls button.play { background:#27ae60; color:white; }
+  #tts-controls button.pause { background:#f39c12; color:white; }
+  #tts-controls button.stop { background:#c0392b; color:white; }
+  #tts-panel select, #tts-panel input[type="range"] { width:100%; margin-top:6px; }
+  #theme-controls { margin-top:10px; display:flex; gap:6px; align-items:center; }
+  #theme-controls button { padding:6px 8px; border-radius:6px; border:none; cursor:pointer; }
+  .small-note { font-size:11px; color:#666; margin-top:6px;}
+  .tts-highlight{ background: rgba(255,235,59,0.6); border-radius:3px; transition: background 0.15s ease; }
+</style>
+
+<div id="tts-panel" aria-label="Controles de leitura">
+  <h4>Leitor de Texto • Tema</h4>
+
+  <label for="voiceSelect">Voz</label>
+  <select id="voiceSelect" aria-label="Selecionar voz">
+    <option value="">Carregando vozes...</option>
+  </select>
+
+  <label for="rate">Velocidade: <span id="rateVal">1</span>x</label>
+  <input id="rate" type="range" min="0.5" max="2" step="0.1" value="1">
+
+  <label for="pitch">Tom: <span id="pitchVal">1</span></label>
+  <input id="pitch" type="range" min="0.5" max="2" step="0.1" value="1">
+
+  <div style="margin-top:8px;">
+    <input type="checkbox" id="highlightToggle" checked> <label for="highlightToggle" style="display:inline">Destacar texto em leitura</label>
+  </div>
+
+  <div id="tts-controls">
+    <button id="readPage" class="play">Ler página</button>
+    <button id="readSelection" class="play" disabled>Ler seleção</button>
+    <button id="pauseBtn" class="pause">Pausar/Retomar</button>
+    <button id="stopBtn" class="stop">Parar</button>
+  </div>
+
+  <div id="theme-controls">
+    <button id="themeToggle">▶ Tema (trilha)</button>
+    <label style="font-size:12px">Volume</label>
+    <input id="themeVolume" type="range" min="0" max="1" step="0.01" value="0.3" style="flex:1">
+  </div>
+
+  <div class="small-note">Dica: selecione um trecho do texto e clique em "Ler seleção". Atalhos: Alt+L (ler), Alt+P (pausar), Alt+S (parar).</div>
+</div>
+
+<audio id="siteTheme" loop preload="none" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_7e1f8d6b5f.mp3?filename=calm-acoustic-guitar-111094.mp3"></audio>
+
+<script>
+(function() {
+  // Elementos
+  const panel = document.getElementById('tts-panel');
+  const accessibilityBtn = document.querySelector('.accessibility-btn');
+  const voiceSelect = document.getElementById('voiceSelect');
+  const rateInput = document.getElementById('rate');
+  const pitchInput = document.getElementById('pitch');
+  const rateVal = document.getElementById('rateVal');
+  const pitchVal = document.getElementById('pitchVal');
+  const readPageBtn = document.getElementById('readPage');
+  const readSelectionBtn = document.getElementById('readSelection');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const highlightToggle = document.getElementById('highlightToggle');
+  const themeToggle = document.getElementById('themeToggle');
+  const siteTheme = document.getElementById('siteTheme');
+  const themeVolume = document.getElementById('themeVolume');
+
+  const synth = window.speechSynthesis;
+  let voices = [];
+  let currentUtterance = null;
+
+  // Popula o select de vozes (com tentativa de selecionar PT-BR)
+  function populateVoices() {
+    voices = synth.getVoices() || [];
+    voiceSelect.innerHTML = '';
+
+    if (!voices.length) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'Nenhuma voz disponível';
+      voiceSelect.appendChild(opt);
+      return;
+    }
+
+    // Ordena por nome e adiciona ao select
+    voices.sort((a,b) => (a.name || '').localeCompare(b.name || ''));
+    voices.forEach(v => {
+      const option = document.createElement('option');
+      option.value = v.name || v.voiceURI || '';
+      option.textContent = `${v.name || v.voiceURI} ${v.lang ? '— ' + v.lang : ''}`;
+      voiceSelect.appendChild(option);
+    });
+
+    // Tenta selecionar PT-BR ou pt
+    const preferPT = voices.find(v => (/pt[-_]?br/i.test(v.lang) || /portuguese/i.test(v.name) || /brazil/i.test(v.name)));
+    if (preferPT) voiceSelect.value = preferPT.name;
+    else {
+      // tenta selecionar por idioma pt se existir
+      const pt = voices.find(v => /^pt/i.test(v.lang));
+      if (pt) voiceSelect.value = pt.name;
+    }
+  }
+
+  // Tentativa inicial e listener para onvoiceschanged
+  try {
+    populateVoices();
+    if (typeof speechSynthesis !== 'undefined' && 'onvoiceschanged' in speechSynthesis) {
+      speechSynthesis.onvoiceschanged = populateVoices;
+    }
+  } catch (err) {
+    console.warn('Erro ao povoar vozes:', err);
+  }
+
+  // Atualiza sliders
+  rateInput.addEventListener('input', () => rateVal.textContent = rateInput.value);
+  pitchInput.addEventListener('input', () => pitchVal.textContent = pitchInput.value);
+
+  // Função utilitária para obter voz por nome
+  function getVoiceByName(name) {
+    return voices.find(v => v.name === name) || voices.find(v => v.voiceURI === name) || null;
+  }
+
+  // Pega texto da seleção ou da página (container principal se existir)
+  function textFromSelectionOrPage(selectionOnly = false) {
+    try {
+      const sel = window.getSelection();
+      if (selectionOnly) {
+        return sel ? sel.toString().trim() : '';
+      }
+      if (sel && sel.toString().trim()) return sel.toString().trim();
+      const main = document.querySelector('main') || document.querySelector('.container') || document.body;
+      return main ? main.innerText.trim() : document.body.innerText.trim();
+    } catch (err) {
+      return '';
+    }
+  }
+
+  // Limpa highlights antigos
+  function clearHighlights() {
+    document.querySelectorAll('.tts-highlight').forEach(span => {
+      const parent = span.parentNode;
+      parent.replaceChild(document.createTextNode(span.textContent), span);
+      parent.normalize();
+    });
+  }
+
+  // Highlight por range de caracteres (heurístico)
+  function highlightRange(start, length, fullText) {
+    const container = document.querySelector('main') || document.querySelector('.container') || document.body;
+    if (!container) return;
+    const plain = container.innerText;
+    const snippet = fullText.substr(start, length);
+    if (!snippet.trim()) return;
+    const index = plain.indexOf(snippet);
+    if (index === -1) return;
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+    let node, accumulated = 0;
+    while (node = walker.nextNode()) {
+      const nodeText = node.nodeValue;
+      const nextAccum = accumulated + nodeText.length;
+      if (index < nextAccum) {
+        const localStart = index - accumulated;
+        const localLen = Math.min(length, nodeText.length - localStart);
+        const range = document.createRange();
+        range.setStart(node, localStart);
+        range.setEnd(node, localStart + localLen);
+        const span = document.createElement('span');
+        span.className = 'tts-highlight';
+        try {
+          range.surroundContents(span);
+        } catch (e) {
+          // se falhar em HTML complexo, ignora para não quebrar a página
+        }
+        return;
+      }
+      accumulated = nextAccum;
+    }
+  }
+
+  // Anexa boundary highlight se suportado
+  function attachBoundaryHighlight(utt) {
+    clearHighlights();
+    if (!('onboundary' in SpeechSynthesisUtterance.prototype)) return;
+
+    const fullText = utt.text || '';
+    utt.onboundary = (e) => {
+      if (!highlightToggle.checked) return;
+      // alguns navegadores usam e.name === 'word' ou undefined
+      const start = e.charIndex || 0;
+      const len = e.charLength || 0;
+      try {
+        clearHighlights();
+        highlightRange(start, len, fullText);
+      } catch (err) { /* noop */ }
+    };
+    utt.onend = () => clearHighlights();
+    utt.onerror = () => clearHighlights();
+  }
+
+  // Fala
+  function speak(text) {
+    if (!text) return;
+    if (!('speechSynthesis' in window)) {
+      alert('Texto-para-fala não suportado neste navegador.');
+      return;
+    }
+    if (synth.speaking) synth.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    const selVoice = getVoiceByName(voiceSelect.value);
+    if (selVoice) utt.voice = selVoice;
+    utt.rate = parseFloat(rateInput.value) || 1;
+    utt.pitch = parseFloat(pitchInput.value) || 1;
+
+    attachBoundaryHighlight(utt);
+
+    currentUtterance = utt;
+    try {
+      synth.speak(utt);
+    } catch (err) {
+      console.error('Erro ao iniciar síntese:', err);
+      alert('Erro ao iniciar a leitura — verifique suporte do navegador.');
+    }
+  }
+
+  // Botões
+  readPageBtn.addEventListener('click', () => {
+    const text = textFromSelectionOrPage(false);
+    if (!text) { alert('Nenhum texto encontrado para ler.'); return; }
+    speak(text);
+  });
+
+  readSelectionBtn.addEventListener('click', () => {
+    const text = textFromSelectionOrPage(true);
+    if (!text) { alert('Selecione um trecho de texto primeiro.'); return; }
+    speak(text);
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) return;
+    if (synth.speaking && !synth.paused) synth.pause();
+    else if (synth.paused) synth.resume();
+  });
+
+  stopBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) return;
+    if (synth.speaking || synth.paused) {
+      synth.cancel();
+      clearHighlights();
+    }
+  });
+
+  // Theme musical
+  themeToggle.addEventListener('click', () => {
+    if (siteTheme.paused) {
+      siteTheme.volume = parseFloat(themeVolume.value || 0.3);
+      const p = siteTheme.play();
+      if (p && p.catch) p.catch(() => {
+        alert('O navegador bloqueou a reprodução automática do tema. Interaja com a página e tente novamente.');
+      });
+      themeToggle.textContent = '⏸ Pausar tema';
+    } else {
+      siteTheme.pause();
+      themeToggle.textContent = '▶ Tema (trilha)';
+    }
+  });
+  themeVolume.addEventListener('input', () => siteTheme.volume = parseFloat(themeVolume.value));
+
+  // Habilita/Desabilita botão "Ler seleção" conforme seleção do usuário
+  document.addEventListener('selectionchange', () => {
+    const selText = (window.getSelection && window.getSelection().toString().trim()) || '';
+    readSelectionBtn.disabled = !selText;
+  });
+
+  // Atalhos de teclado
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey && !e.ctrlKey && !e.metaKey) {
+      const k = e.key.toLowerCase();
+      if (k === 'l') { e.preventDefault(); readPageBtn.click(); }
+      if (k === 's') { e.preventDefault(); stopBtn.click(); }
+      if (k === 'p') { e.preventDefault(); pauseBtn.click(); }
+    }
+  });
+
+  // Toggle do painel ao clicar no botão de acessibilidade (clique único)
+  if (accessibilityBtn) {
+    accessibilityBtn.setAttribute('aria-controls', 'tts-panel');
+    accessibilityBtn.addEventListener('click', () => {
+      const isHidden = panel.style.display === 'none' || panel.style.display === '';
+      panel.style.display = isHidden ? 'block' : 'none';
+      panel.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+    });
+    // Permite abrir também com Enter/Space quando focado (acessibilidade)
+    accessibilityBtn.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
+        accessibilityBtn.click();
+      }
+    });
+  } else {
+    // Se não existir o botão, mostra o painel (desenvolvimento) — remove se quiser
+    // panel.style.display = 'block';
+    // console.warn('.accessibility-btn não encontrado — verifique a classe do botão.');
+  }
+
+  // Aviso se TTS não for suportado
+  if (!('speechSynthesis' in window)) {
+    const note = document.createElement('div');
+    note.style.position = 'fixed';
+    note.style.left = '20px';
+    note.style.bottom = '20px';
+    note.style.background = '#ffdddd';
+    note.style.padding = '8px 12px';
+    note.style.border = '1px solid #f1c0c0';
+    note.style.borderRadius = '6px';
+    note.textContent = 'Texto-para-fala não suportado neste navegador.';
+    document.body.appendChild(note);
+  }
+})();
+</script>
+<!-- === Fim: Leitor de Texto + Tema === -->

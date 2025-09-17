@@ -617,7 +617,7 @@
                 <div class="comment">
                     <div class="comment-header">
                         <span class="comment-author">João Santos</span>
-                        <span class="comment-date">08/08/2025</span>
+                        <span class="comment-date">05/09/2025</span>
                     </div>
                     <p>Precisamos de mais políticas públicas voltadas para a segurança alimentar nas periferias. Ótima iniciativa este site!</p>
                 </div>
@@ -625,7 +625,7 @@
                 <div class="comment">
                     <div class="comment-header">
                         <span class="comment-author">Ana Costa</span>
-                        <span class="comment-date">05/08/2025</span>
+                        <span class="comment-date">01/09/2025</span>
                     </div>
                     <p>Gostaria de saber como posso me envolver mais ativamente nesta causa. Vocês poderiam indicar organizações que trabalham com isso?</p>
                 </div>
@@ -706,144 +706,111 @@
         });
     </script>
 
-   <!-- === Início: Painel de Leitura Inteligente (Glassmorphism Preto) === -->
+   <!-- === Início: Painel Leitura PT-BR (Glassmorphism preto) === -->
 <style>
+  /* Painel moderno - glassmorphism (fundo preto translúcido) */
   #tts-panel {
     position: fixed;
     right: 20px;
     bottom: 90px;
-    width: 350px;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-radius: 20px;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
-    padding: 18px;
-    font-family: "Segoe UI", Roboto, sans-serif;
-    z-index: 3000;
-    display: none; /* começa escondido */
-    color: #000000;
-    animation: fadeInUp 0.35s ease;
+    width: 360px;
+    background: rgba(10,10,12,0.45);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
+    padding: 16px;
+    font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+    z-index: 4000;
+    display: none;
+    color: #e6e6e6;
+    transform-origin: bottom right;
   }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+  #tts-panel.show { animation: popIn 320ms cubic-bezier(.2,.9,.3,1); display:block; }
+  @keyframes popIn {
+    from { transform: translateY(12px) scale(.98); opacity:0 }
+    to { transform: translateY(0) scale(1); opacity:1 }
   }
 
   #tts-panel h4 {
-    margin: 0 0 14px 0;
-    font-size: 18px;
-    font-weight: 600;
+    margin: 0 0 8px 0;
+    font-size: 15px;
     text-align: center;
-    color: #ffffff;
+    color: #fdfdfd;
+    letter-spacing: .2px;
   }
 
-  #tts-panel label {
-    font-size: 13px;
-    margin-top: 8px;
-    display: block;
-    color: #ffffff;
+  label.small { display:block; font-size:12px; color:#ffffff; margin-top:8px; }
+  select, input[type="range"] {
+    width:100%; margin-top:6px; padding:8px 10px; border-radius:8px; border: none;
+    background: rgba(0, 0, 0, 0.522); color:#fff; font-size:13px;
+    -webkit-appearance:none;
   }
 
-  #tts-panel select,
-  #tts-panel input[type="range"] {
-    width: 100%;
-    margin-top: 4px;
-    background: rgba(0, 0, 0, 0.693);
-    border: none;
-    border-radius: 8px;
-    padding: 6px;
-    color: #ffffff;
+  .controls-row { display:flex; gap:8px; margin-top:12px; }
+  .controls-row button {
+    flex:1; padding:10px; border-radius:10px; border: none; font-weight:700; cursor:pointer;
+    transition: transform .12s ease, filter .12s ease;
+  }
+  .btn-play { background: linear-gradient(90deg,#2ecc71,#27ae60); color:#06100b; }
+  .btn-select { background: linear-gradient(90deg,#3498db,#2c82c9); color:#fff; }
+  .btn-pause { background: linear-gradient(90deg,#f1c40f,#f39c12); color:#101010; }
+  .btn-stop { background: linear-gradient(90deg,#ff6b6b,#e74c3c); color:#fff; }
+  .controls-row button:hover { transform: translateY(-3px); filter:brightness(1.04); }
+
+  .theme-row { display:flex; gap:8px; align-items:center; margin-top:12px; }
+  .theme-row button {
+    padding:8px 10px; border-radius:10px; border:none; cursor:pointer; background: linear-gradient(90deg,#8e44ad,#6c2cad); color:#fff; font-weight:700;
+  }
+  .note { font-size:12px; color:#c7c9cd; margin-top:10px; text-align:center; }
+
+  /* destaque que acompanha a fala */
+  .tts-current {
+    background: linear-gradient(90deg, rgba(255,230,128,0.95), rgba(255,205,80,0.95));
+    color:#111 !important;
+    border-radius:4px;
+    padding:0 1px;
   }
 
-  #tts-controls {
-    display: flex;
-    gap: 8px;
-    margin-top: 14px;
-  }
-
-  #tts-controls button {
-    flex: 1;
-    padding: 10px;
-    border-radius: 12px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  #tts-controls button.play { background: #27ae60; color: #fff; }
-  #tts-controls button.pause { background: #f39c12; color: #fff; }
-  #tts-controls button.stop { background: #c0392b; color: #fff; }
-
-  #tts-controls button:hover { filter: brightness(1.15); transform: translateY(-2px); }
-
-  #theme-controls {
-    margin-top: 14px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  #theme-controls button {
-    flex: 1;
-    padding: 8px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    background: #2980b9;
-    color: #fff;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  #theme-controls button:hover { filter: brightness(1.15); transform: translateY(-2px); }
-
-  .small-note {
-    font-size: 11px;
-    color: #aaa;
-    margin-top: 10px;
-    text-align: center;
-  }
-
-  .tts-highlight {
-    background: rgba(255, 215, 70, 0.85);
-    border-radius: 4px;
-    transition: background 0.2s ease;
+  /* responsividade */
+  @media (max-width:420px){
+    #tts-panel { width: 92%; left: 4%; right:auto; bottom: 20px; }
   }
 </style>
 
-<div id="tts-panel" aria-label="Painel de leitura inteligente">
-  <h4>🎤 Leitura Inteligente</h4>
+<div id="tts-panel" aria-hidden="true" role="dialog" aria-label="Painel de leitura em Português">
+  <h4>🔊 Leitura em Português (PT-BR)</h4>
 
-  <label for="voiceSelect">Voz</label>
-  <select id="voiceSelect"></select>
+  <label class="small" for="voiceSelect">Voz (apenas PT-BR)</label>
+  <select id="voiceSelect" aria-label="Selecionar voz em Português"></select>
 
-  <label for="rate">Velocidade: <span id="rateVal">1</span>x</label>
-  <input id="rate" type="range" min="0.5" max="2" step="0.1" value="1">
+  <label class="small" for="rateRange">Velocidade: <span id="rateNum">1</span>x</label>
+  <input id="rateRange" type="range" min="0.6" max="1.8" step="0.05" value="1">
 
-  <label for="pitch">Tom: <span id="pitchVal">1</span></label>
-  <input id="pitch" type="range" min="0.5" max="2" step="0.1" value="1">
+  <label class="small" for="pitchRange">Tom: <span id="pitchNum">1</span></label>
+  <input id="pitchRange" type="range" min="0.6" max="1.6" step="0.05" value="1">
 
-  <div style="margin-top:6px;">
-    <input type="checkbox" id="highlightToggle" checked>
-    <label for="highlightToggle" style="display:inline;color:#ccc;">Destacar texto em leitura</label>
+  <div style="margin-top:8px;">
+    <input id="highlightToggle" type="checkbox" checked>
+    <label for="highlightToggle" style="color:#cfd2d6; font-size:13px; margin-left:6px;">Destacar texto em leitura</label>
   </div>
 
-  <div id="tts-controls">
-    <button id="readPage" class="play">Ler Página</button>
-    <button id="readSelection" class="play" disabled>Ler Seleção</button>
-    <button id="pauseBtn" class="pause">Pausar/Continuar</button>
-    <button id="stopBtn" class="stop">Parar</button>
+  <div class="controls-row" style="margin-top:10px;">
+    <button id="btnReadPage" class="btn-play" title="Ler a página inteira">Ler Página</button>
+    <button id="btnReadSelection" class="btn-select" title="Ler o trecho selecionado" disabled>Ler Seleção</button>
   </div>
 
-  <div id="theme-controls">
-    <button id="themeToggle">▶ Tema</button>
-    <input id="themeVolume" type="range" min="0" max="1" step="0.01" value="0.3">
+  <div class="controls-row">
+    <button id="btnPause" class="btn-pause" title="Pausar / Retomar">Pausar</button>
+    <button id="btnStop" class="btn-stop" title="Parar leitura">Parar</button>
   </div>
 
-  <div class="small-note">Atalhos: Alt+L (ler), Alt+P (pausar), Alt+S (parar)</div>
+  <div class="theme-row">
+    <button id="btnTheme">▶ Tema</button>
+    <input id="themeVol" type="range" min="0" max="1" step="0.01" value="0.25" aria-label="Volume do tema">
+  </div>
+
+  <div class="note">Atalhos: <strong>Alt+L</strong> (ler), <strong>Alt+P</strong> (pausar), <strong>Alt+S</strong> (parar)</div>
 </div>
 
 <audio id="siteTheme" loop preload="none"
@@ -851,127 +818,246 @@
 
 <script>
 (function(){
-  const panel = document.getElementById("tts-panel");
-  const accessibilityBtn = document.querySelector(".accessibility-btn");
-  const voiceSelect = document.getElementById("voiceSelect");
-  const rateInput = document.getElementById("rate");
-  const pitchInput = document.getElementById("pitch");
-  const rateVal = document.getElementById("rateVal");
-  const pitchVal = document.getElementById("pitchVal");
-  const readPageBtn = document.getElementById("readPage");
-  const readSelectionBtn = document.getElementById("readSelection");
-  const pauseBtn = document.getElementById("pauseBtn");
-  const stopBtn = document.getElementById("stopBtn");
-  const highlightToggle = document.getElementById("highlightToggle");
-  const themeToggle = document.getElementById("themeToggle");
-  const siteTheme = document.getElementById("siteTheme");
-  const themeVolume = document.getElementById("themeVolume");
+  // Elementos
+  const panel = document.getElementById('tts-panel');
+  const accessibilityBtn = document.querySelector('.accessibility-btn');
+  const voiceSelect = document.getElementById('voiceSelect');
+  const rateRange = document.getElementById('rateRange');
+  const pitchRange = document.getElementById('pitchRange');
+  const rateNum = document.getElementById('rateNum');
+  const pitchNum = document.getElementById('pitchNum');
+  const highlightToggle = document.getElementById('highlightToggle');
+  const btnReadPage = document.getElementById('btnReadPage');
+  const btnReadSelection = document.getElementById('btnReadSelection');
+  const btnPause = document.getElementById('btnPause');
+  const btnStop = document.getElementById('btnStop');
+  const btnTheme = document.getElementById('btnTheme');
+  const themeVol = document.getElementById('themeVol');
+  const siteTheme = document.getElementById('siteTheme');
 
   const synth = window.speechSynthesis;
   let voices = [];
   let currentUtterance = null;
+  let mapping = []; // array de {node, start, end}
 
-  function populateVoices() {
+  // Atualiza sliders visuais
+  rateRange.addEventListener('input', ()=> rateNum.textContent = rateRange.value);
+  pitchRange.addEventListener('input', ()=> pitchNum.textContent = pitchRange.value);
+
+  // --- VOICES: somente PT-BR --- //
+  function populatePTBRVoices(){
     voices = synth.getVoices() || [];
-    voiceSelect.innerHTML = "";
-    voices.sort((a,b) => (a.name || "").localeCompare(b.name || ""));
-    voices.forEach(v => {
-      const opt = document.createElement("option");
-      opt.value = v.name;
-      opt.textContent = `${v.name} (${v.lang})`;
+    voiceSelect.innerHTML = '';
+    // filtrar por lang que contenha 'pt' (pt, pt-BR)
+    const ptVoices = voices.filter(v => (v.lang || '').toLowerCase().includes('pt'));
+    if(ptVoices.length === 0){
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'Nenhuma voz PT-BR disponível no navegador';
+      voiceSelect.appendChild(opt);
+      // mostra uma dica visível
+      const warn = document.createElement('div');
+      warn.style.fontSize='12px'; warn.style.color='#ffccbc'; warn.style.marginTop='8px';
+      warn.textContent = 'Seu navegador / sistema não possui voz PT-BR nativa. Para voz natural, integre TTS externo (ex: Google/Azure/OpenAI).';
+      if(!panel.querySelector('.voice-warning')) { warn.className='voice-warning'; panel.appendChild(warn); }
+      return;
+    }
+    // preencher select somente com pt voices
+    ptVoices.sort((a,b)=> (a.name||'').localeCompare(b.name||''));
+    ptVoices.forEach(v=>{
+      const opt = document.createElement('option');
+      opt.value = v.name || v.voiceURI;
+      opt.textContent = `${v.name} — ${v.lang}`;
       voiceSelect.appendChild(opt);
     });
-    const preferPT = voices.find(v => /pt[-_]?br/i.test(v.lang));
-    if (preferPT) voiceSelect.value = preferPT.name;
-  }
-  populateVoices();
-  if ("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged = populateVoices;
-
-  rateInput.oninput = ()=> rateVal.textContent = rateInput.value;
-  pitchInput.oninput = ()=> pitchVal.textContent = pitchInput.value;
-
-  function getVoice(name){ return voices.find(v => v.name === name) || null; }
-  function getText(selectionOnly=false){
-    const sel = window.getSelection();
-    if(selectionOnly && sel) return sel.toString().trim();
-    if(sel && sel.toString().trim()) return sel.toString().trim();
-    return (document.querySelector("main") || document.body).innerText.trim();
+    // tentar selecionar pt-BR preferencial
+    const prefer = ptVoices.find(v => /pt[-_]?br/i.test(v.lang)) || ptVoices[0];
+    if(prefer) voiceSelect.value = prefer.name || prefer.voiceURI;
+    // remove aviso se existir
+    const old = panel.querySelector('.voice-warning'); if(old) old.remove();
   }
 
-  function clearHighlights(){
-    document.querySelectorAll(".tts-highlight").forEach(span=> span.replaceWith(span.textContent));
-  }
+  populatePTBRVoices();
+  if('onvoiceschanged' in speechSynthesis) speechSynthesis.onvoiceschanged = populatePTBRVoices;
 
-  function highlightRange(start,len,text){
-    const container=document.querySelector("main")||document.body;
-    const plain=container.innerText;
-    const snippet=text.substr(start,len);
-    if(!snippet.trim()) return;
-    const index=plain.indexOf(snippet); if(index===-1) return;
-    const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
-    let node,acc=0;
-    while(node=walker.nextNode()){
-      const next=acc+node.nodeValue.length;
-      if(index<next){
-        const r=document.createRange();
-        r.setStart(node,index-acc);
-        r.setEnd(node,index-acc+len);
-        const span=document.createElement("span");
-        span.className="tts-highlight";
-        try{ r.surroundContents(span);}catch{}
-        return;
-      }
-      acc=next;
+  // --- Construir índice textual do container (nodes e offsets) --- //
+  function buildTextIndex(container){
+    mapping = [];
+    let walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    let pos = 0;
+    while((node = walker.nextNode())){
+      const text = node.nodeValue || '';
+      if(text.trim().length === 0){ pos += text.length; continue; }
+      mapping.push({ node: node, start: pos, end: pos + text.length });
+      pos += text.length;
     }
   }
 
-  function speak(text){
-    if(!text) return;
-    synth.cancel();
-    const utt=new SpeechSynthesisUtterance(text);
-    const voice=getVoice(voiceSelect.value);
-    if(voice) utt.voice=voice;
-    utt.rate=parseFloat(rateInput.value);
-    utt.pitch=parseFloat(pitchInput.value);
+  // Procura trecho a partir do charIndex e envolve com span .tts-current
+  let lastHighlight = null;
+  function highlightAt(charIndex, charLength){
+    clearHighlight();
+    if(!highlightToggle.checked) return;
+    if(!mapping.length) buildTextIndex(document.querySelector('main') || document.body);
+    // ajuste de segurança
+    charLength = (charLength && charLength > 0) ? charLength : 6;
+    // encontrar node
+    const m = mapping.find(seg => charIndex >= seg.start && charIndex < seg.end);
+    if(!m) return;
+    const localStart = charIndex - m.start;
+    const localEnd = Math.min(localStart + charLength, m.end - m.start);
+    try {
+      const range = document.createRange();
+      range.setStart(m.node, localStart);
+      range.setEnd(m.node, localEnd);
+      const span = document.createElement('span');
+      span.className = 'tts-current';
+      range.surroundContents(span);
+      lastHighlight = span;
+      // rolar para o elemento atual (mobile friendly)
+      span.scrollIntoView({behavior:'smooth', block:'center', inline:'nearest'});
+    } catch(e){
+      // se não for possível (HTML complexo), tenta abordagem fallback substituindo texto completo (evita quebra)
+    }
+  }
+  function clearHighlight(){
+    if(lastHighlight){
+      // substitui o elemento pelo seu texto
+      const txt = document.createTextNode(lastHighlight.textContent);
+      lastHighlight.parentNode.replaceChild(txt, lastHighlight);
+      lastHighlight = null;
+      // rebuild mapping because DOM changed
+      mapping = [];
+    }
+  }
 
-    utt.onboundary=(e)=>{
-      if(highlightToggle.checked) highlightRange(e.charIndex,e.charLength||5,text);
+  // --- Função que executa a fala e anexa as fontes no final --- //
+  function speakText(rawText){
+    if(!rawText || rawText.trim().length === 0) { alert('Nenhum texto encontrado para ler.'); return; }
+    // acrescenta a frase de fontes (garantir separação)
+    const suffix = "\n\nFontes: FAO, ONU, IBGE e Organização Mundial da Saúde.";
+    const text = rawText.trim() + suffix;
+    if(!('speechSynthesis' in window)) { alert('TTS não suportado neste navegador.'); return; }
+    // rebuild mapping for highlight positions
+    buildTextIndex(document.querySelector('main') || document.body);
+    // cancelar fala anterior
+    speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    // definir lingua PT-BR explicitamente
+    utt.lang = 'pt-BR';
+    // selecionar voz PT-BR (se disponível)
+    const selName = voiceSelect.value;
+    if(selName){
+      const v = (speechSynthesis.getVoices() || []).find(x => (x.name === selName) || (x.voiceURI === selName));
+      if(v) utt.voice = v;
+    }
+    utt.rate = parseFloat(rateRange.value) || 1;
+    utt.pitch = parseFloat(pitchRange.value) || 1;
+
+    // boundary -> highlight
+    utt.onboundary = function(e){
+      // e.charIndex indica posição dentro do texto
+      if(!e || typeof e.charIndex === 'undefined') return;
+      const ci = e.charIndex;
+      const clen = e.charLength || 8;
+      highlightAt(ci, clen);
     };
-    utt.onend=clearHighlights;
-    utt.onerror=clearHighlights;
+    utt.onend = function(){ clearHighlight(); currentUtterance = null; btnPause.textContent = 'Pausar'; };
+    utt.onerror = function(){ clearHighlight(); currentUtterance = null; btnPause.textContent = 'Pausar'; };
 
-    synth.speak(utt);
-    currentUtterance=utt;
+    speechSynthesis.speak(utt);
+    currentUtterance = utt;
+    btnPause.textContent = 'Pausar';
   }
 
-  readPageBtn.onclick=()=>{ const t=getText(false); if(t) speak(t); };
-  readSelectionBtn.onclick=()=>{ const t=getText(true); if(t) speak(t); };
-  pauseBtn.onclick=()=>{ if(synth.paused) synth.resume(); else synth.pause(); };
-  stopBtn.onclick=()=>{ synth.cancel(); clearHighlights(); };
-
-  document.addEventListener("selectionchange",()=>{
-    readSelectionBtn.disabled=!window.getSelection().toString().trim();
+  // --- Botões --- //
+  btnReadPage.addEventListener('click', ()=>{
+    // preferir main > .container > body
+    const main = document.querySelector('main') || document.querySelector('.container') || document.body;
+    const txt = main.innerText || main.textContent;
+    speakText(txt);
   });
 
-  themeToggle.onclick=()=>{
-    if(siteTheme.paused){ siteTheme.volume=themeVolume.value; siteTheme.play(); themeToggle.textContent="⏸ Tema"; }
-    else { siteTheme.pause(); themeToggle.textContent="▶ Tema"; }
-  };
-  themeVolume.oninput=()=> siteTheme.volume=themeVolume.value;
-
-  document.addEventListener("keydown",(e)=>{
-    if(e.altKey){ if(e.key==="l") readPageBtn.click();
-      if(e.key==="p") pauseBtn.click();
-      if(e.key==="s") stopBtn.click();
-    }
+  btnReadSelection.addEventListener('click', ()=>{
+    const sel = window.getSelection();
+    const txt = sel ? sel.toString() : '';
+    if(!txt || txt.trim() === '') { alert('Selecione o trecho que deseja ouvir.'); return; }
+    speakText(txt);
   });
 
+  btnPause.addEventListener('click', ()=>{
+    if(!('speechSynthesis' in window)) return;
+    if(speechSynthesis.speaking && !speechSynthesis.paused){ speechSynthesis.pause(); btnPause.textContent='Continuar'; }
+    else if(speechSynthesis.paused){ speechSynthesis.resume(); btnPause.textContent='Pausar'; }
+  });
+
+  btnStop.addEventListener('click', ()=>{
+    if(!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel(); clearHighlight(); currentUtterance = null; btnPause.textContent = 'Pausar';
+  });
+
+  // habilitar/desabilitar botão de ler seleção
+  document.addEventListener('selectionchange', ()=>{
+    const s = window.getSelection();
+    btnReadSelection.disabled = !(s && s.toString().trim());
+  });
+
+  // Tema musical
+  btnTheme.addEventListener('click', ()=>{
+    if(siteTheme.paused){ siteTheme.volume = parseFloat(themeVol.value||0.25); siteTheme.play().catch(()=>{ alert('Navegador bloqueou reprodução automática do tema. Interaja com a página e tente novamente.'); }); btnTheme.textContent='⏸ Tema'; }
+    else { siteTheme.pause(); btnTheme.textContent='▶ Tema'; }
+  });
+  themeVol.addEventListener('input', ()=> siteTheme.volume = parseFloat(themeVol.value));
+
+  // atalhos
+  document.addEventListener('keydown', (e)=>{
+    if(!e.altKey) return;
+    const k = e.key.toLowerCase();
+    if(k === 'l') btnReadPage.click();
+    if(k === 'p') btnPause.click();
+    if(k === 's') btnStop.click();
+  });
+
+  // Toggle painel com o botão .accessibility-btn (clique único)
   if(accessibilityBtn){
-    accessibilityBtn.addEventListener("click",()=>{
-      panel.style.display = panel.style.display==="none" ? "block":"none";
+    accessibilityBtn.addEventListener('click', ()=>{
+      const isVisible = panel.classList.contains('show');
+      if(isVisible){
+        panel.classList.remove('show');
+        panel.setAttribute('aria-hidden','true');
+      } else {
+        panel.classList.add('show');
+        panel.setAttribute('aria-hidden','false');
+      }
     });
+    // permitir abrir com Enter/Space quando está focado
+    accessibilityBtn.addEventListener('keydown', (ev)=> {
+      if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); accessibilityBtn.click(); }
+    });
+  } else {
+    // Se não houver o botão, opcional: se quiser exibir durante desenvolvimento, descomente:
+    // panel.classList.add('show'); panel.setAttribute('aria-hidden','false');
+    console.warn('.accessibility-btn não encontrado — verifique se o botão existe com essa classe.');
   }
+
+  // Feedback se não existir voz PT-BR
+  setTimeout(()=>{
+    const hasPT = Array.from(speechSynthesis.getVoices() || []).some(v => (v.lang||'').toLowerCase().includes('pt'));
+    if(!hasPT){
+      // adiciona aviso breve no painel caso o usuário abra
+      const warn = document.createElement('div');
+      warn.style.fontSize='12px'; warn.style.color='#ffd9c7'; warn.style.marginTop='8px';
+      warn.textContent = 'Aviso: não foi encontrada voz PT-BR nativa no navegador/dispositivo.';
+      if(!panel.querySelector('.pt-warning')) { warn.className='pt-warning'; panel.appendChild(warn); }
+    }
+  }, 800);
+
+  // Mobile NOTE: em alguns iOS/Android, onboundary pode não fornecer charIndex preciso.
+  // O código tenta mapear e destacar; se não funcionar perfeitamente em algum navegador, considerar integração a TTS em nuvem para controle preciso.
+
 })();
 </script>
+<!-- === Fim: Painel Leitura PT-BR === -->
 </body>
 </html>
